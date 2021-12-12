@@ -30,14 +30,19 @@ function onGalleryContainerClick(evt) {
     if (!evt.target.classList.contains('gallery__image')) {
         return
     }
+    window.addEventListener('keydown', onCloseModal);
     const imgSrc = evt.target.dataset.source;
     const instance = basicLightbox.create(`
     <img src=${imgSrc} width="800" height="600">
 `)
     instance.show();
+
+    function onCloseModal(evt) {
+    window.removeEventListener('keydown', onCloseModal);
+    if (evt.code === 'Escape') {
+        instance.close();
+    }
+}
 }
 
-
-
-console.log(createGalleryMarkup);
 console.log(galleryItems);
